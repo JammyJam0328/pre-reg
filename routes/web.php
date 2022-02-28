@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-   if (!auth()->user) {
+   if (!auth()->user()) {
       return redirect('/login');
    }else{
      if(auth()->user()->isAdmin()){
