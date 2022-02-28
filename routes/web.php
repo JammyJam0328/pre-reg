@@ -5,11 +5,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-   if(auth()->user()->isAdmin()){
+   if (!auth()->user) {
+      return redirect('/login');
+   }else{
+     if(auth()->user()->isAdmin()){
         return redirect()->route('admin.dashboard');
     }else{
         return redirect()->route('student.home');
     }
+   }
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
