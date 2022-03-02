@@ -1,9 +1,9 @@
 <form>
     @csrf
     <div class="space-y-8 ">
-        <div>
-            <h3 class="text-xl font-medium leading-6 text-gray-700">Preview</h3>
-            <div class="p-4 rounded-md bg-green-50">
+        {{-- <div>
+            <h3 class="text-xl font-medium text-gray-700">Preview</h3>
+            <div class="p-4 mt-2 rounded-md bg-green-50">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
         <div>
             <div>
                 <h3 class="text-xl font-medium leading-6 text-gray-700">Create new application portal</h3>
@@ -66,7 +66,7 @@
                     </div>
 
                 </div>
-                <div class="sm:col-span-6">
+                {{-- <div class="sm:col-span-6">
                     <label for="slots"
                         class="block text-sm font-medium text-gray-700">Slots</label>
                     <div class="mt-1">
@@ -76,7 +76,7 @@
                             id="slots"
                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 

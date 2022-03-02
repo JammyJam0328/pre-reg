@@ -21,7 +21,6 @@ class FormPortal extends Component
         '2028-2029',
         '2029-2030',
     ];
-    public $slots;
     protected $listeners = [
         'openPortal' => 'openPortal',
         'closePortal' => 'closePortal',
@@ -39,18 +38,15 @@ class FormPortal extends Component
         $this->validate([
             'title' => 'required',
             'school_year' => 'required|in:'.implode(',',$this->schoolYears),
-            'slots' => 'nullable|numeric',
         ]);
         Portal::create([
             'title' => $this->title,
             'school_year' => $this->school_year,
-            'slots' => $this->slots,
         ]);
 
         $this->reset([
             'title',
             'school_year',
-            'slots',
         ]);
 
         $this->dispatchBrowserEvent('alert',[

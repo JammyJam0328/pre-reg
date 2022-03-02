@@ -14,6 +14,8 @@ class ViewSchedules extends Component
     public $portal_id;
     public $portal_details;
     public $date;
+    public $slots;
+
 
     public function mount($id)
     {
@@ -38,19 +40,27 @@ class ViewSchedules extends Component
     {
         $this->validate([
             'date' => 'required|date',
+            'slots' => 'required|numeric',
         ]);
-        Schedule::create([
+        $schedule = Schedule::create([
             'portal_id' => $this->portal_id,
             'date' => $this->date,
+            'slots' => $this->slots,
         ]);
 
+        $schedule->portal()->update([
+            'slots' => $schedule->portal->slots + $schedule->slots,
+        ]);
+        
         $this->reset([
             'date',
+            'slots',
         ]);
 
         $this->dispatchBrowserEvent('alert',[
             'type' => 'success',
             'message' => 'Schedule successfully created.',
+            'action'=>'displayList',
         ]);
     }
  

@@ -150,6 +150,7 @@
                                     </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
                                         <input id="permanent_address"
+                                            wire:model.defer="permanent_address"
                                             name="permanent_address"
                                             type="text"
                                             autocomplete="permanent_address"
@@ -158,16 +159,19 @@
                                 </div>
                                 <div
                                     class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                    <label for="temporary_address"
-                                        class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Temporary
+                                    <label for="present_address"
+                                        class="flex space-x-2 text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Present
                                         Address
                                     </label>
+
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input id="temporary_address"
-                                            name="temporary_address"
+                                        <input id="present_address"
+                                            wire:model.defer="present_address"
+                                            name="present_address"
                                             type="text"
-                                            autocomplete="temporary_address"
+                                            autocomplete="present_address"
                                             class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
                                     </div>
                                 </div>
                                 <div
@@ -193,7 +197,7 @@
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Date of Birth
                                     </label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input type="text"
+                                        <input type="date"
                                             name="date_of_birth"
                                             id="date_of_birth"
                                             autocomplete="family-name"
@@ -286,11 +290,11 @@
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">School Last
                                         Attended</label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input type="text"
+                                        <input id="school_last_attended"
                                             name="school_last_attended"
-                                            id="school_last_attended"
+                                            type="text"
                                             autocomplete="school_last_attended"
-                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm">
+                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                                 <div
@@ -299,24 +303,24 @@
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">School
                                         Address</label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input type="text"
+                                        <input id="school_address"
                                             name="school_address"
-                                            id="school_address"
+                                            type="text"
                                             autocomplete="school_address"
-                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm">
+                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                                 <div
                                     class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                    <label for="tribe"
+                                    <label for="strant_taken"
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Track/Strand
                                         Taken</label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input type="text"
-                                            name="tribe"
-                                            id="tribe"
-                                            autocomplete="tribe"
-                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm">
+                                        <input id="strant_taken"
+                                            name="strant_taken"
+                                            type="text"
+                                            autocomplete="strant_taken"
+                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                                 <div
@@ -325,11 +329,15 @@
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">School Year
                                         Graduated</label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input type="text"
-                                            name="school_year_graduated"
-                                            id="school_year_graduated"
-                                            autocomplete="school_year_graduated"
+                                        <select id="sy_graduated"
+                                            name="sy_graduated"
+                                            wire:model="school_year_graduated"
+                                            autocomplete="sy_graduated"
                                             class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm">
+                                            @foreach ($schoolYears as $year)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div
@@ -338,11 +346,12 @@
                                         class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Honor/Award
                                         received</label>
                                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                        <input type="text"
+                                        <input id="ha_recieved"
                                             name="ha_recieved"
-                                            id="ha_recieved"
+                                            type="text"
                                             autocomplete="ha_recieved"
-                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm">
+                                            placeholder="e.g. With High Honor"
+                                            class="block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                                 <div

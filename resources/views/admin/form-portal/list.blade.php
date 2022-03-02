@@ -1,78 +1,104 @@
  <div class="flex flex-col">
      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-             <div class=" overflow-hidden border border-gray-200 sm:rounded-lg">
+         <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+             <div class="overflow-hidden border border-gray-200 sm:rounded-lg">
                  <table class="min-w-full divide-y divide-gray-200">
                      <thead class="bg-blue-500">
                          <tr>
                              <th scope="col"
-                                 class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                  Title</th>
                              <th scope="col"
-                                 class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                  School Year</th>
                              <th scope="col"
-                                 class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                  Slots</th>
                              <th scope="col"
-                                 class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                  Created</th>
                              <th scope="col"
-                                 class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
+                                 Status</th>
+                             <th scope="col"
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                  Options</th>
                              <th scope="col"
-                                 class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
                                  Action</th>
                          </tr>
                      </thead>
                      <tbody>
                          @forelse ($portals as $key=>$portal)
                              <tr class="{{ $key % 2 == 0 ? 'bg-white' : 'bg-gray-50' }} ">
-                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                                      {{ $portal->title }}</td>
-                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                      {{ $portal->school_year }}</td>
-                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                      {{ $portal->slots }}</td>
-                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                      {{ $portal->created_at->format('M d, Y') }}</td>
-                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
-                                     <a href="{{ route('admin.portal-schedule', ['id' => $portal->id]) }}"
-                                         class="bg-indigo-600 py-1 px-2 rounded-md  text-white hover:bg-indigo-500">
-                                         View schedule</a>
+                                 <td class="px-6 py-4 text-xs text-gray-500 uppercase whitespace-nowrap">
                                      @switch($portal->status)
+                                         @case('open')
+                                             <span
+                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                 {{ $portal->status }}
+                                             </span>
+                                         @break
+
                                          @case('close')
-                                             <button wire:click.prevent="confirmOpenPortal({{ $portal->id }})"
-                                                 x-on:mouseover="$el.innerHTML = 'Open Portal'"
-                                                 x-on:mouseleave="$el.innerHTML = 'Close'"
+                                             <span
+                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                 {{ $portal->status }}
+                                             </span>
+                                         @break
+
+                                         @case('closed')
+                                             <span
+                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                 {{ $portal->status }} </span>
+                                         @break
+                                     @endswitch
+
+                                 </td>
+                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap ">
+                                     <a href="{{ route('admin.portal-schedule', ['id' => $portal->id]) }}"
+                                         class="px-2 py-1 text-white bg-indigo-600 rounded-md hover:bg-indigo-500">
+                                         View schedule</a>
+
+
+                                 </td>
+                                 <td
+                                     class="flex items-center px-6 py-4 space-x-1 text-sm font-medium text-right whitespace-nowrap">
+                                     @switch($portal->status)
+                                         @case('open')
+                                             <button wire:click.prevent="confirmClosePortal({{ $portal->id }})"
                                                  type="button"
-                                                 class="bg-gray-600 py-1 px-2 rounded-md  text-white hover:bg-gray-500">
+                                                 class="p-1 text-white bg-gray-600 rounded-md hover:bg-gray-500">
                                                  Close
                                              </button>
                                          @break
 
-                                         @case('open')
-                                             <button type="button"
-                                                 wire:click.prevent="confirmClosePortal({{ $portal->id }})"
-                                                 x-on:mouseover="$el.innerHTML = 'Close'"
-                                                 x-on:mouseleave="$el.innerHTML = 'Now Open'"
-                                                 class="bg-green-600 py-1 px-2 rounded-md  text-white hover:bg-green-500">
-                                                 Now open
+                                         @case('close')
+                                             <button wire:click.prevent="confirmOpenPortal({{ $portal->id }})"
+                                                 class="p-1 text-white bg-green-600 rounded-md hover:bg-green-500">
+                                                 Open
                                              </button>
                                          @break
 
                                          @case('closed')
                                              <button type="button"
-                                                 class="bg-gray-600 py-1 px-2 rounded-md  text-white hover:bg-gray-500">
-                                                 Reopen</button>
+                                                 class="p-1 text-white bg-yellow-600 rounded-md hover:bg-yellow-500">
+                                                 Re-Open
+                                             </button>
                                          @break
                                      @endswitch
-                                 </td>
-                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                      <button type="button"
-                                         class="bg-blue-600 p-1 rounded-md  text-white hover:bg-blue-500">
+                                         class="p-1 text-white bg-blue-600 rounded-md hover:bg-blue-500">
                                          <svg xmlns="http://www.w3.org/2000/svg"
-                                             class="h-5 w-5"
+                                             class="w-5 h-5"
                                              viewBox="0 0 20 20"
                                              fill="currentColor">
                                              <path
@@ -80,9 +106,9 @@
                                          </svg>
                                      </button>
                                      <button type="button"
-                                         class="bg-red-600  p-1 rounded-md text-white hover:bg-red-500">
+                                         class="p-1 text-white bg-red-600 rounded-md hover:bg-red-500">
                                          <svg xmlns="http://www.w3.org/2000/svg"
-                                             class="h-5 w-5"
+                                             class="w-5 h-5"
                                              viewBox="0 0 20 20"
                                              fill="currentColor">
                                              <path fill-rule="evenodd"
@@ -96,7 +122,7 @@
                              @empty
                                  <tr class="bg-white">
                                      <td colspan="5"
-                                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+                                         class="px-6 py-4 text-sm font-medium text-center text-gray-900 whitespace-nowrap">
                                          No Portals Found
                                      </td>
                                  </tr>

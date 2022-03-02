@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('portal_id');
             $table->string('date');
+            $table->string('slots')->nullable();
             $table->timestamps();
         });
     }

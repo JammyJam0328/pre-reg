@@ -11,7 +11,7 @@
                 </svg>
             </x-user.shared.header>
             <x-user.shared.main-content>
-                <div>
+                <div class="space-y-3">
                     @forelse ($portals as $portal)
                         <div class="flex">
                             <div class="flex-shrink-0">

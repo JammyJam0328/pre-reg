@@ -12,11 +12,26 @@ class PreRegistration extends Component
 {
     public $portal_id;
     public $campuses=[];
+
+     public $schoolYears=[
+        '2014-2015',
+        '2015-2016',
+        '2016-2017',
+        '2017-2018',
+        '2018-2019',
+        '2019-2020',
+        '2020-2021',
+        '2021-2022',
+        '2022-2023',
+        '2023-2024',
+    ];
     public function mount($portal_id)
     {
 
         $this->portal_id = $portal_id;
         $this->campuses = Campus::with('programs')->get();
+        //set school_year_graduated to current year
+        $this->school_year_graduated = (date('Y')-1). '-' . date('Y');
        
     }
 
@@ -50,6 +65,10 @@ class PreRegistration extends Component
             $this->first_choice = $course;
         };
     }
+
+    public $school_year_graduated;
+    public $permanent_address;
+    public $present_address;
 
     
 }
