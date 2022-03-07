@@ -1,5 +1,6 @@
  <div class="flex flex-col">
      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+
          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
              <div class="overflow-hidden border border-gray-200 sm:rounded-lg">
                  <table class="min-w-full divide-y divide-gray-200">
@@ -13,8 +14,7 @@
                                  Date</th>
                              <th scope="col"
                                  class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase">
-                                 Slots</th>
-
+                                 No. of Facilities</th>
                              <th scope="col"
                                  class="px-6 py-3 text-xs font-medium tracking-wider text-right text-white uppercase">
                                  Actions</th>
@@ -28,8 +28,9 @@
                                  <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                                      {{ $schedule->date }}
                                  </td>
-                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                     {{ $schedule->slots }}</td>
+                                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                     {{ $schedule->examination_facilities_count }}
+                                 </td>
                                  <td
                                      class="flex items-center justify-end px-6 py-4 space-x-1 text-sm font-medium text-right whitespace-nowrap">
                                      <button type="button"

@@ -4,11 +4,11 @@
                <div class="flex">
                    <div class="flex items-center flex-shrink-0">
                        <img class="block w-auto h-8 lg:hidden"
-                           src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                           alt="Workflow">
+                           src="{{ asset('images/sksu1.png') }}"
+                           alt="sksu">
                        <img class="hidden w-auto h-8 lg:block"
-                           src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                           alt="Workflow">
+                           src="{{ asset('images/sksu1.png') }}"
+                           alt="sksu">
                    </div>
                    <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                        <x-user.shared.link :to="route('admin.dashboard')"
@@ -17,6 +17,9 @@
                        <x-user.shared.link :to="route('admin.applications')"
                            name="Applications"
                            :active="Request::routeIs('admin.applications')" />
+                       <x-user.shared.link :to="route('admin.payments')"
+                           name="Payments"
+                           :active="Request::routeIs('admin.payments')" />
                        <x-user.shared.link :to="route('admin.form-portals')"
                            name="Application Portals"
                            :active="Request::routeIs('admin.form-portals')" />

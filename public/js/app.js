@@ -95,6 +95,127 @@ var module_default = src_default;
 
 /***/ }),
 
+/***/ "./node_modules/@alpinejs/intersect/dist/module.esm.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@alpinejs/intersect/dist/module.esm.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ module_default)
+/* harmony export */ });
+// packages/intersect/src/index.js
+function src_default(Alpine) {
+  Alpine.directive("intersect", (el, {value, expression, modifiers}, {evaluateLater, cleanup}) => {
+    let evaluate = evaluateLater(expression);
+    let options = {
+      rootMargin: getRootMargin(modifiers),
+      threshold: getThreshhold(modifiers)
+    };
+    let observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting === (value === "leave"))
+          return;
+        evaluate();
+        modifiers.includes("once") && observer.disconnect();
+      });
+    }, options);
+    observer.observe(el);
+    cleanup(() => {
+      observer.disconnect();
+    });
+  });
+}
+function getThreshhold(modifiers) {
+  if (modifiers.includes("full"))
+    return 0.99;
+  if (modifiers.includes("half"))
+    return 0.5;
+  return 0;
+}
+function getLengthValue(rawValue) {
+  let match = rawValue.match(/^(-?[0-9]+)(px|%)?$/);
+  return match ? match[1] + (match[2] || "px") : void 0;
+}
+function getRootMargin(modifiers) {
+  const key = "margin";
+  const fallback = "0px 0px 0px 0px";
+  const index = modifiers.indexOf(key);
+  if (index === -1)
+    return fallback;
+  let values = [];
+  for (let i = 1; i < 5; i++) {
+    values.push(getLengthValue(modifiers[index + i] || ""));
+  }
+  values = values.filter((v) => v !== void 0);
+  return values.length ? values.join(" ").trim() : fallback;
+}
+
+// packages/intersect/builds/module.js
+var module_default = src_default;
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@alpinejs/persist/dist/module.esm.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@alpinejs/persist/dist/module.esm.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ module_default)
+/* harmony export */ });
+// packages/persist/src/index.js
+function src_default(Alpine) {
+  let persist = () => {
+    let alias;
+    let storage = localStorage;
+    return Alpine.interceptor((initialValue, getter, setter, path, key) => {
+      let lookup = alias || `_x_${path}`;
+      let initial = storageHas(lookup, storage) ? storageGet(lookup, storage) : initialValue;
+      setter(initial);
+      Alpine.effect(() => {
+        let value = getter();
+        storageSet(lookup, value, storage);
+        setter(value);
+      });
+      return initial;
+    }, (func) => {
+      func.as = (key) => {
+        alias = key;
+        return func;
+      }, func.using = (target) => {
+        storage = target;
+        return func;
+      };
+    });
+  };
+  Object.defineProperty(Alpine, "$persist", {get: () => persist()});
+  Alpine.magic("persist", persist);
+}
+function storageHas(key, storage) {
+  return storage.getItem(key) !== null;
+}
+function storageGet(key, storage) {
+  return JSON.parse(storage.getItem(key, storage));
+}
+function storageSet(key, value, storage) {
+  storage.setItem(key, JSON.stringify(value));
+}
+
+// packages/persist/builds/module.js
+var module_default = src_default;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/alpinejs/dist/module.esm.js":
 /*!**************************************************!*\
   !*** ./node_modules/alpinejs/dist/module.esm.js ***!
@@ -5715,10 +5836,16 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 /* harmony import */ var _alpinejs_collapse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @alpinejs/collapse */ "./node_modules/@alpinejs/collapse/dist/module.esm.js");
+/* harmony import */ var _alpinejs_persist__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/persist */ "./node_modules/@alpinejs/persist/dist/module.esm.js");
+/* harmony import */ var _alpinejs_intersect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @alpinejs/intersect */ "./node_modules/@alpinejs/intersect/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
+
+alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_alpinejs_intersect__WEBPACK_IMPORTED_MODULE_3__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_alpinejs_persist__WEBPACK_IMPORTED_MODULE_2__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_alpinejs_collapse__WEBPACK_IMPORTED_MODULE_1__["default"]);
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();

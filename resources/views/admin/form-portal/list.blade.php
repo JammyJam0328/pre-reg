@@ -67,8 +67,6 @@
                                      <a href="{{ route('admin.portal-schedule', ['id' => $portal->id]) }}"
                                          class="px-2 py-1 text-white bg-indigo-600 rounded-md hover:bg-indigo-500">
                                          View schedule</a>
-
-
                                  </td>
                                  <td
                                      class="flex items-center px-6 py-4 space-x-1 text-sm font-medium text-right whitespace-nowrap">

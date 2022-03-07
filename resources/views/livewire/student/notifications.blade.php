@@ -1,7 +1,7 @@
 <div>
     <main>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <x-user.shared.header title="Notifications">
+            <x-user.shared.header title="Notifications (WORK IN PROGRESS)">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-8 h-8"
                     viewBox="0 0 20 20"

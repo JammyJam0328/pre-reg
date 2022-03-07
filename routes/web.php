@@ -33,8 +33,12 @@ Route::prefix('student')
     Route::get('/schedules', App\Http\Livewire\Student\Schedules::class)->name('student.schedules');
     Route::get('/notifications', App\Http\Livewire\Student\Notifications::class)->name('student.notifications');
     Route::get('/pre-registration/{portal_id}', App\Http\Livewire\Student\PreRegistration::class)->name('student.pre-registration');
-    Route::get('/payment', App\Http\Livewire\Student\PaymentSection::class)->name('student.payment');
+    Route::get('/view-application/{portal_id}', App\Http\Livewire\Student\ViewApplication::class)->name('student.view-application');
+    Route::get('/{user_id}/payment/{application_id}', App\Http\Livewire\Student\PaymentSection::class)->name('student.payment-section');
+    Route::get('/{application_id}/select-schedule', App\Http\Livewire\Student\SelectSchedule::class)->name('student.select-schedule');
+     Route::get('/{application_id}/permit', App\Http\Livewire\Student\MyPermit::class)->name('student.my-permit');
 });
+
 
 
 Route::prefix('admin')
@@ -43,5 +47,7 @@ Route::prefix('admin')
     Route::get('/dashboard', App\Http\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
     Route::get('/applications', App\Http\Livewire\Admin\Applications::class)->name('admin.applications');
     Route::get('/application-portals', App\Http\Livewire\Admin\FormPortal::class)->name('admin.form-portals');
-    Route::get('/portals/schedule/{id}', App\Http\Livewire\Admin\ViewSchedules::class)->name('admin.portal-schedule');
+    Route::get('/portal/{id}/schedules', App\Http\Livewire\Admin\ViewSchedules::class)->name('admin.portal-schedule');
+    Route::get('/payments', App\Http\Livewire\Admin\Payments::class)->name('admin.payments');
+
 });

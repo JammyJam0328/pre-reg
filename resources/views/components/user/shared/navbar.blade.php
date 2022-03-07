@@ -1,25 +1,23 @@
-   <nav class="bg-white ">
+   <nav class="sticky top-0 z-50 bg-white">
        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
            <div class="flex justify-between h-16">
                <div class="flex">
                    <div class="flex items-center flex-shrink-0">
-                       <img class="block w-auto h-8 lg:hidden"
-                           src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                           alt="Workflow">
-                       <img class="hidden w-auto h-8 lg:block"
-                           src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                           alt="Workflow">
+
+                       <img class="w-auto h-8 "
+                           src="{{ asset('images/sksu1.png') }}"
+                           alt="sksu logo">
                    </div>
                    <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                        <x-user.shared.link :to="route('student.home')"
                            name="Home"
                            :active="Request::routeIs('student.home')" />
                        <x-user.shared.link :to="route('student.my-application')"
-                           name="My Application"
+                           name="My Applications"
                            :active="Request::routeIs('student.my-application')" />
-                       <x-user.shared.link :to="route('student.schedules')"
+                       {{-- <x-user.shared.link :to="route('student.schedules')"
                            name="Schedules"
-                           :active="Request::routeIs('student.schedules')" />
+                           :active="Request::routeIs('student.schedules')" /> --}}
                        <x-user.shared.link :to="route('student.notifications')"
                            name="Notifications"
                            :active="Request::routeIs('student.notifications')" />

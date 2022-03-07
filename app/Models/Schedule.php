@@ -14,4 +14,9 @@ class Schedule extends Model
     {
         return $this->belongsTo(Portal::class);
     }
+
+    public function examinationFacilities()
+    {
+        return $this->hasMany(ExaminationFacility::class);
+    }
 }

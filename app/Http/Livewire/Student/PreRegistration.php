@@ -6,69 +6,50 @@ use Livewire\Component;
 use App\Models\Portal;
 use App\Models\Campus;
 use App\Models\Course;
-
-
+use App\Models\Application;
 class PreRegistration extends Component
 {
     public $portal_id;
-    public $campuses=[];
-
-     public $schoolYears=[
-        '2014-2015',
-        '2015-2016',
-        '2016-2017',
-        '2017-2018',
-        '2018-2019',
-        '2019-2020',
-        '2020-2021',
-        '2021-2022',
-        '2022-2023',
-        '2023-2024',
-    ];
+    protected $listeners=['change'=>'$refresh'];
     public function mount($portal_id)
     {
-
         $this->portal_id = $portal_id;
-        $this->campuses = Campus::with('programs')->get();
-        //set school_year_graduated to current year
-        $this->school_year_graduated = (date('Y')-1). '-' . date('Y');
-       
     }
-
-    public function getPortalProperty()
+    public function isStepOneFilled()
     {
-       return Portal::find($this->portal_id);
+        return $this->application->first_choice && $this->application->second_choice != null;
+    }
+    public function isStepTwoFilled()
+    {
+        return $this->application->first_name && $this->application->last_name && $this->application->permanent_address && $this->application->present_address && $this->application->age && $this->application->date_of_birth && $this->application->place_of_birth && $this->application->nationality && $this->application->citizenship && $this->application->civil_status && $this->application->tribe && $this->application->religion && $this->application->school_last_attended && $this->application->school_address && $this->application->track_taken && $this->application->school_year_graduated && $this->application->sex && $this->application->status != null;
     }
 
-  
+      public function isStepThreeFilled()
+    {
+        return $this->application->student_photo && $this->application->first_sem_gpa_photo && $this->application->shs_cor_photo != null;
+    }
+
+    // computed properties
+    public function getApplicationProperty()
+    {
+        return Application::where('user_id',auth()->user()->id)->where('portal_id',$this->portal_id)->first();
+    }
+    // end of computed properties
+
+    public $campuses=[];
     public function render()
     {
         return view('livewire.student.pre-registration')
         ->layout('layouts.student');
     }
-    public $first_choice='';
-    public $second_choice='';
-    public function setChoice($course)
-    {
-
-        // check if the course is already  selected
-        if($this->first_choice == $course || $this->second_choice == $course){
-            return;
-        }
-           
-        if($this->first_choice == null && $this->second_choice == null){
-            $this->first_choice = $course;
-        }elseif($this->first_choice != null && $this->second_choice == null){
-            $this->second_choice = $course;
-        }elseif($this->first_choice != null && $this->second_choice != null){
-            $this->second_choice = $this->first_choice;
-            $this->first_choice = $course;
-        };
-    }
-
-    public $school_year_graduated;
     public $permanent_address;
     public $present_address;
-
-    
+    public function isApplied()
+    {
+       $result = Application::where('portal_id', $this->portal_id)->where('user_id', auth()->user()->id)->first();
+        if(!$result){
+            return false;
+        };
+        return true;
+    }
 }

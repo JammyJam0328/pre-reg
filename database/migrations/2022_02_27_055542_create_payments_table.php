@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('application_id');
             $table->unsignedBigInteger('portal_id');
             $table->string('amount');
-            $table->string('proof_of_payment');
             $table->string('status')->default('pending');
             $table->timestamps();
         });

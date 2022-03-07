@@ -14,4 +14,9 @@ class Portal extends Model
     {
         return $this->hasMany(Schedule::class);
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

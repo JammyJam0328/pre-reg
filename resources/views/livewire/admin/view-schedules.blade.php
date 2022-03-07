@@ -24,51 +24,22 @@
             </x-admin.shared.header>
 
             <x-admin.shared.main-content>
-                <div class="mb-2">
-                    <x-global.alert />
-                </div>
-                <div x-show="action=='displayList'">
-                    @include('admin.view-schedules.list')
+                <div class="space-y-2">
+                    <div>
+                        <x-global.alert />
+                    </div>
+                    <div x-show="action=='displayList'">
+                        @include('admin.view-schedules.list')
+                    </div>
                 </div>
                 <div x-cloak
                     x-show="action=='add'">
-                    <span>
+                    <h1 class="text-xl font-semibold text-gray-600">
                         Add New Schedule
-                    </span>
-                    <form class="space-y-5">
-                        @csrf
-                        <div>
-                            <label for="date"
-                                class="block text-sm font-medium text-gray-700">Date</label>
-                            <div class="mt-1">
-                                <input type="date"
-                                    wire:model.defer="date"
-                                    name="date"
-                                    id="date"
-                                    class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="slots"
-                                class="block text-sm font-medium text-gray-700">Slots</label>
-                            <div class="mt-1">
-                                <input type="number"
-                                    wire:model.defer="slots"
-                                    name="slots"
-                                    id="slots"
-                                    class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <button wire:click.prevent="create"
-                                type="button"
-                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                Save
-                            </button>
-                        </div>
-                    </form>
-
-
+                    </h1>
+                    <div>
+                        @include('admin.view-schedules.create')
+                    </div>
                 </div>
 
 
