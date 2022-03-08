@@ -1,4 +1,4 @@
-   <nav class="bg-white ">
+   <nav class="sticky top-0 bg-white">
        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
            <div class="flex justify-between h-16">
                <div class="flex">

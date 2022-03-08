@@ -56,15 +56,21 @@
                                                         <button
                                                             wire:click="approveConfirmation('{{ $application->id }}')"
                                                             type="button"
-                                                            class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                            class="inline-flex uppercase items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                                             Approve
                                                         </button>
-                                                        <button x-on:click="alert('Work in Progress')"
+                                                        <button
+                                                            wire:click="rejectConfirmation('{{ $application->id }}')"
                                                             type="button"
-                                                            class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                            class="inline-flex uppercase items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                             Deny
                                                         </button>
                                                     @endif
+                                                    <a href="{{ route('admin.view-application', ['application_id' => $application->id]) }}"
+                                                        type="button"
+                                                        class="inline-flex uppercase cursor-pointer items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                                        View Details
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

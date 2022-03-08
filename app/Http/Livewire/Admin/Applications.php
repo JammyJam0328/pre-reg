@@ -66,7 +66,7 @@ class Applications extends Component
     public function reject()
     {
         $this->application->update([
-            'status'=>'rejected',
+            'status'=>'denied',
         ]);
     }
 

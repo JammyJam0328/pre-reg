@@ -77,6 +77,10 @@
                                                 Check your examination permit. Go to > My Applications for examination
                                                 permit
                                             </li>
+                                        @elseif (in_array($portal->id, $denieds))
+                                            <li class="text-red-500 animate-pulse">
+                                                Your application has been denied.
+                                            </li>
                                         @else
                                             <li>
                                                 Fill up your application

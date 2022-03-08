@@ -7,6 +7,8 @@ use App\Models\Application;
 use App\Models\Schedule;
 use App\Models\ExamSchedule;
 use App\Models\Permit;
+use App\Models\ExaminationFacility;
+
 class SelectSchedule extends Component
 {
     public $application_id;
@@ -39,19 +41,37 @@ class SelectSchedule extends Component
         $this->validate([
             'selectedSchedule'=>'required',
         ]);
-        $this->application->update([
+
+        $examfacility = ExaminationFacility::where('id',$this->selectedSchedule)->first();
+
+        if($examfacility->slot > 0){
+            // decrement slot
+            $examfacility->update([
+                'slot'=>$examfacility->slot-1,
+            ]);
+
+            $this->application->update([
             'status'=>'schedule-selected',
-        ]);
+            ]);
+            $examSchedule = ExamSchedule::create([
+                'application_id'=>$this->application->id,
+                'examination_facility_id'=>$this->selectedSchedule,
+            ]);
+            Permit::create([
+                'exam_schedule_id'=>$examSchedule->id,
+                'exam_permit_number'=>'SKSU-PAS-'.$this->application->portal_id.$this->application->id.$examSchedule->id.auth()->user()->id,
+            ]);
+            return redirect()->route('student.home');
+        }
 
-        $examSchedule = ExamSchedule::create([
-            'application_id'=>$this->application->id,
-            'examination_facility_id'=>$this->selectedSchedule,
-        ]);
+       
+    }
 
-        Permit::create([
-            'exam_schedule_id'=>$examSchedule->id,
-            'exam_permit_number'=>'SKSU-PAS-'.$this->application->portal_id.$this->application->id.$examSchedule->id.auth()->user()->id,
-        ]);
-        return redirect()->route('student.home');
+    public function isFull($slot)
+    {
+        if($slot > 0){
+            return false;
+        }
+        return true;
     }
 }

@@ -14,6 +14,8 @@ class Home extends Component
     public $paymentSubmitted=[];
     public $paymentApproved=[];
     public $scheduleSelected=[];
+    public $denieds=[];
+
 
 
     public $ongoings=[];
@@ -28,6 +30,7 @@ class Home extends Component
     }
     public function mount()
     {
+        $this->denieds = Application::where('user_id',auth()->user()->id)->where('status','denied')->pluck('portal_id')->toArray();
         $this->scheduleSelected = Application::where('user_id',auth()->user()->id)->where('status','schedule-selected')->pluck('portal_id')->toArray();
         $this->paymentApproved = Application::where('user_id',auth()->user()->id)->where('status','payment-approved')->pluck('portal_id')->toArray();
         $this->allNone = Application::where('status','')->where('user_id',auth()->user()->id)->pluck('portal_id')->toArray();

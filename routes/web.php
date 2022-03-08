@@ -49,5 +49,8 @@ Route::prefix('admin')
     Route::get('/application-portals', App\Http\Livewire\Admin\FormPortal::class)->name('admin.form-portals');
     Route::get('/portal/{id}/schedules', App\Http\Livewire\Admin\ViewSchedules::class)->name('admin.portal-schedule');
     Route::get('/payments', App\Http\Livewire\Admin\Payments::class)->name('admin.payments');
+    Route::get('/application/{application_id}/view-details', App\Http\Livewire\Admin\ViewApplication::class)->name('admin.view-application');
+
+    
 
 });

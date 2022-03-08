@@ -13,5 +13,6 @@ class Permit extends Model
     public function examSchedule()
     {
         return $this->belongsTo(ExamSchedule::class);
+        
     }
 }
