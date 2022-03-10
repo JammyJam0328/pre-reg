@@ -1,4 +1,4 @@
-<div x-data="app"
+{{-- <div x-data="app"
     x-on:alert.window="action = event.detail.action">
     <main>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -79,4 +79,31 @@
             })
         </script>
     @endpush
-@endonce
+@endonce --}}
+
+
+<div class="py-6">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+        <h1 class="text-2xl font-semibold text-gray-900">Manage Portals</h1>
+    </div>
+    <div class="px-4 mx-auto mt-2 max-w-7xl sm:px-6 md:px-8">
+        <div class="p-4 pb-5 bg-white border rounded-md">
+            <div>
+                @if ($action == 'showList')
+                    <div>
+                        @include('admin.form-portal.list')
+                    </div>
+                @endif
+            </div>
+            <div>
+                @if ($action == 'create')
+                    <div>
+                        @include('admin.form-portal.create-form')
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <livewire:shared.confirmation />
+
+</div>

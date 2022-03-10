@@ -14,9 +14,9 @@ class ExamSchedule extends Model
     {
         return $this->belongsTo(Application::class);
     }
-    public function examinationFacility()
+    public function examinationTestCenter()
     {
-        return $this->belongsTo(ExaminationFacility::class);
+        return $this->belongsTo(ExaminationTestCenter::class);
     }
 
     public function permit()

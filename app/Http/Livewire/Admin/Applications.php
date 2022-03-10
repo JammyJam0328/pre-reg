@@ -25,7 +25,7 @@ class Applications extends Component
             'applications' => ApplicationModel::where('portal_id',$this->portal_id)->where('status','pending')->with('portal')->paginate($this->pagination),
             'searchResults'=>$this->searchPortal == '' ? [] : $this->getSearchPortals(),
             ])
-        ->layout('layouts.admin');
+        ->layout('layouts.admin-layout');
     }
     public function getSearchPortals()
     {

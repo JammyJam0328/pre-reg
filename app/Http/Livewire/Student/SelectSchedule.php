@@ -7,7 +7,7 @@ use App\Models\Application;
 use App\Models\Schedule;
 use App\Models\ExamSchedule;
 use App\Models\Permit;
-use App\Models\ExaminationFacility;
+use App\Models\ExaminationTestCenter;
 
 class SelectSchedule extends Component
 {
@@ -31,7 +31,7 @@ class SelectSchedule extends Component
     public function render()
     {
         return view('livewire.student.select-schedule',[
-            'schedules' => Schedule::where('portal_id',$this->application->portal_id)->with('examinationFacilities.facility')->get(),
+            'schedules' => Schedule::where('portal_id',$this->application->portal_id)->with('examinationTestCenters.testCenter')->get(),
         ])
         ->layout('layouts.student');
     }
@@ -42,12 +42,12 @@ class SelectSchedule extends Component
             'selectedSchedule'=>'required',
         ]);
 
-        $examfacility = ExaminationFacility::where('id',$this->selectedSchedule)->first();
+        $examTestCenter = ExaminationTestCenter::where('id',$this->selectedSchedule)->first();
 
-        if($examfacility->slot > 0){
+        if($examTestCenter->slot > 0){
             // decrement slot
-            $examfacility->update([
-                'slot'=>$examfacility->slot-1,
+            $examTestCenter->update([
+                'slot'=>$examTestCenter->slot-1,
             ]);
 
             $this->application->update([
@@ -55,7 +55,7 @@ class SelectSchedule extends Component
             ]);
             $examSchedule = ExamSchedule::create([
                 'application_id'=>$this->application->id,
-                'examination_facility_id'=>$this->selectedSchedule,
+                'examination_test_center_id'=>$this->selectedSchedule,
             ]);
             Permit::create([
                 'exam_schedule_id'=>$examSchedule->id,
@@ -63,8 +63,6 @@ class SelectSchedule extends Component
             ]);
             return redirect()->route('student.home');
         }
-
-       
     }
 
     public function isFull($slot)

@@ -5,19 +5,20 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\Portal;
 use App\Models\Schedule;
-use App\Models\Facility;
+use App\Models\TestCenter;
 
 use Livewire\WithPagination;
 
 class ViewSchedules extends Component
 {
     use WithPagination;
+    public $action='showList';
     public $portal_id;
     public $portal_details;
     public $date;
     public $slots;
 
-    public $facilities=[];
+    public $testCenters=[];
 
     public function mount($id)
     {
@@ -28,12 +29,12 @@ class ViewSchedules extends Component
             abort(404);
         }
 
-        $this->facilities = Facility::get();
+        $this->testCenters = TestCenter::get();
     }
     public function getSchedules()
     {
         $schedule = Schedule::where('portal_id', $this->portal_id)
-                    ->withCount('examinationFacilities')
+                    ->withCount('examinationTestCenters')
                     ->paginate(10);
         abort_if(!$schedule, 404, 'Page not found');
         return $schedule;
@@ -43,23 +44,23 @@ class ViewSchedules extends Component
         return view('livewire.admin.view-schedules',[
             'schedules'=>$this->getSchedules(),
         ])
-        ->layout('layouts.admin');
+        ->layout('layouts.admin-layout');
     }
 
 
-    public $selectedFacilities=[];
+    public $selectedTestCenters=[];
     public $selecteds=[];
 
 
-    public function addSelectedFacility($id, $name)
+    public function addSelectedTestCenter($id, $name)
     {
-        $this->selectedFacilities[$id] = $name;
+        $this->selectedTestCenters[$id] = $name;
         $this->selecteds[] = $id;
     }
 
-    public function removeSelectedFacility($id)
+    public function removeSelectedTestCenter($id)
     {
-        unset($this->selectedFacilities[$id]);
+        unset($this->selectedTestCenters[$id]);
         $this->selecteds = array_diff($this->selecteds, [$id]);
     }
 
@@ -78,7 +79,7 @@ class ViewSchedules extends Component
         ]);
         
         // schedule must have at least one facility
-        if (count($this->selectedFacilities)==0) {
+        if (count($this->selectedTestCenters)==0) {
             $this->dispatchBrowserEvent('alert',[
                 'type' => 'error',
                 'message' => 'Please select at least one facility.',
@@ -92,14 +93,14 @@ class ViewSchedules extends Component
             'date' => $this->date,
         ]);
 
-        foreach ($this->selectedFacilities as $key => $value) {
-           $schedule->examinationFacilities()->create([
-                'facility_id'=>$key,
+        foreach ($this->selectedTestCenters as $key => $value) {
+           $schedule->examinationTestCenters()->create([
+                'test_center_id'=>$key,
                 'day_time'=>'AM',
                 'slot'=>'100',
             ]);
-            $schedule->examinationFacilities()->create([
-                 'facility_id'=>$key,
+            $schedule->examinationTestCenters()->create([
+                 'test_center_id'=>$key,
                  'day_time'=>'PM',
                  'slot'=>'100',
             ]);
@@ -108,12 +109,12 @@ class ViewSchedules extends Component
         $this->reset([
             'date',
         ]);
-        $this->selectedFacilities = [];
+        $this->selectedTestCenters = [];
         $this->selecteds = [];
+        $this->action='showList';
         $this->dispatchBrowserEvent('alert',[
             'type' => 'success',
             'message' => 'Schedule successfully created.',
-            'action'=>'displayList',
         ]);
             
     }

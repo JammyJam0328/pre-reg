@@ -19,28 +19,28 @@
             <div class="flex w-full space-x-2">
                 <div class="w-1/2 p-5 border border-gray-300 rounded-md shadow-md">
                     <fieldset class="p-3">
-                        <legend class="text-lg font-medium text-gray-900">Select Facilities</legend>
+                        <legend class="text-lg font-medium text-gray-900">Select Test Center</legend>
                         <div class="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
-                            @foreach ($facilities as $key => $facility)
-                                <div wire:key="{{ $key }}-facility"
+                            @foreach ($testCenters as $key => $testCenter)
+                                <div wire:key="{{ $key }}-testCenter"
                                     class="relative flex items-start py-4">
                                     <div class="flex-1 min-w-0 text-sm">
                                         <label for="person-1"
-                                            class="font-medium text-gray-700 select-none">{{ $facility->name }}</label>
+                                            class="font-medium text-gray-700 select-none">{{ $testCenter->name }}</label>
                                     </div>
                                     <div class="flex items-center h-5 ml-3">
-                                        @if (in_array($facility->id, $selecteds))
+                                        @if (in_array($testCenter->id, $selecteds))
                                             <button type="button"
                                                 class="font-bold text-green-600 uppercase"
                                                 id="{{ $key }}-button-add "
-                                                wire:click.prevent="removeSelectedFacility('{{ $facility->id }}')">
+                                                wire:click.prevent="removeSelectedTestCenter('{{ $testCenter->id }}')">
                                                 Selected (remove)
                                             </button>
                                         @else
                                             <button type="button"
                                                 class="font-bold uppercase"
                                                 id="{{ $key }}-button-add"
-                                                wire:click.prevent="addSelectedFacility('{{ $facility->id }}','{{ $facility->name }}')">
+                                                wire:click.prevent="addSelectedTestCenter('{{ $testCenter->id }}','{{ $testCenter->name }}')">
                                                 Add
                                             </button>
                                         @endif
@@ -52,7 +52,7 @@
                 </div>
                 <div class="w-1/2 p-5 border border-gray-300 rounded-md shadow-md">
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
-                        @forelse ($selectedFacilities as $key=>$selectedFacility)
+                        @forelse ($selectedTestCenters as $key=>$selectedTestCenter)
                             <div wire:key="selected-{{ $key }}"
                                 class="relative flex items-center px-3 py-3 space-x-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                 <div class="flex-shrink-0">
@@ -83,7 +83,7 @@
                                         class="focus:outline-none">
                                         <span class="absolute inset-0"
                                             aria-hidden="true"></span>
-                                        <p class="text-sm font-medium text-gray-900">{{ $selectedFacility }}
+                                        <p class="text-sm font-medium text-gray-900">{{ $selectedTestCenter }}
                                         </p>
                                     </a>
                                 </div>
@@ -96,11 +96,18 @@
             </div>
         </div>
         <div class="flex justify-end mt-3">
-            <button wire:click.prevent="create"
-                type="button"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                Save
-            </button>
+            <div class="flex space-x-2">
+                <button wire:click="$set('action','showList')"
+                    type="button"
+                    class="inline-flex items-center px-3 py-2 font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30">
+                    Cancel
+                </button>
+                <button wire:click.prevent="create"
+                    type="button"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Save
+                </button>
+            </div>
         </div>
     </form>
 </div>

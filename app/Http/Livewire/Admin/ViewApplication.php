@@ -17,6 +17,6 @@ class ViewApplication extends Component
         return view('livewire.admin.view-application',[
             'application' =>  Application::findOrFail($this->application_id)->with('portal')->first()
         ])
-            ->layout('layouts.admin');
+            ->layout('layouts.admin-layout');
     }
 }

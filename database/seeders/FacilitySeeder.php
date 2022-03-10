@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Facility;
+use App\Models\TestCenter;
 class FacilitySeeder extends Seeder
 {
     /**
@@ -14,34 +15,17 @@ class FacilitySeeder extends Seeder
      */
     public function run()
     {
-        Facility::create([
-            'name' => 'Facility 1',
-            'description' => 'Facility 1 description',
+        TestCenter::create([
+            'name' => 'SKSU ISULAN CAMPUS',
+            'address' => 'Isulan Sultan Kudarat',
         ]);
-        Facility::create([
-            'name' => 'Facility 2',
-            'description' => 'Facility 2 description',
+        TestCenter::create([
+            'name' => 'SKSU ACCESS CAMPUS',
+            'address' => 'AJC, Montilla Tacurong City Sultan Kudarat',
         ]);
-        Facility::create([
-            'name' => 'Facility 3',
-            'description' => 'Facility 3 description',
+         TestCenter::create([
+            'name' => 'SKSU TACURONG CAMPUS',
+            'address' => 'Tacurong City Sultan Kudarat',
         ]);
-
-        Facility::create([
-            'name' => 'Facility 4',
-            'description' => 'Facility 4 description',
-        ]);
-
-        
-        Facility::create([
-            'name' => 'Facility 5',
-            'description' => 'Facility 5 description',
-        ]);
-
-        Facility::create([
-            'name' => 'Facility 6',
-            'description' => 'Facility 6 description',
-        ]);
-
     }
 }

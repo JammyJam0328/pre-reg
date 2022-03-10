@@ -11,16 +11,16 @@
                 </svg>
             </x-user.shared.header>
             <x-user.shared.main-content>
-                <div class=" rounded-md border">
+                <div class="border rounded-md ">
                     <!-- This example requires Tailwind CSS v2.0+ -->
-                    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                         <div class="px-4 py-5 sm:px-6">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">Examination Permit</h3>
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">Examination Permit</h3>
+                            <p class="max-w-2xl mt-1 text-sm text-gray-500">
                                 Show this page to the Examination Officer on the day of the examination.
                             </p>
                         </div>
-                        <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                        <div class="px-4 py-5 border-t border-gray-200 sm:p-0">
                             <dl class="sm:divide-y sm:divide-gray-200">
                                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Permit No.</dt>
@@ -45,13 +45,13 @@
                                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Schedule</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        {{ $application->examSchedule->examinationFacility->schedule->date }}
+                                        {{ $application->examSchedule->examinationTestCenter->schedule->date }}
                                     </dd>
                                 </div>
                                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Day Time</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        {{ $application->examSchedule->examinationFacility->day_time }}
+                                        {{ $application->examSchedule->examinationTestCenter->day_time }}
                                     </dd>
                                 </div>
 

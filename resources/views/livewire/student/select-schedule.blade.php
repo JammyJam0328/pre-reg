@@ -20,16 +20,16 @@
                                     {{ $schedule->date }}
                                 </legend>
                                 <div class="grid grid-cols-1 mt-4 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                                    @foreach ($schedule->examinationFacilities as $examSchedule)
+                                    @foreach ($schedule->examinationTestCenters as $examSchedule)
                                         <div title="Click to Select"
                                             class="{{ $selectedSchedule == $examSchedule->id ? 'border-blue-700' : '' }} relative flex p-4 bg-white border rounded-lg cursor-pointer focus:outline-none">
                                             <div class="flex flex-1">
                                                 <div class="flex flex-col">
                                                     <span class="block text-sm font-medium text-gray-900">
-                                                        {{ $examSchedule->facility->name }}
+                                                        {{ $examSchedule->testCenter->name }}
                                                     </span>
                                                     <span class="flex items-center mt-1 text-sm text-gray-500">
-                                                        {{ $examSchedule->facility->description }} </span>
+                                                        {{ $examSchedule->testCenter->description }} </span>
                                                     <span class="flex items-center mt-1 text-sm text-gray-500">
                                                         {{ $examSchedule->day_time }} </span>
                                                     <div

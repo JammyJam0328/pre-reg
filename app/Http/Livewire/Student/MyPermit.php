@@ -21,7 +21,7 @@ class MyPermit extends Component
     public function render()
     {
         return view('livewire.student.my-permit',[
-            'application' => Application::findOrFail($this->application_id)->with(['examSchedule.permit','portal','examSchedule.examinationFacility.facility','examSchedule.examinationFacility.schedule'])->first()
+            'application' => Application::findOrFail($this->application_id)->with(['examSchedule.permit','portal','examSchedule.examinationTestCenter.testCenter','examSchedule.examinationTestCenter.schedule'])->first()
         ])
             ->layout('layouts.student');
     }

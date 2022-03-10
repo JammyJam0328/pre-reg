@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     <main>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <x-admin.shared.header title="Payments">
@@ -37,4 +37,35 @@
         </div>
     </main>
     <livewire:shared.confirmation />
+</div> --}}
+
+
+<div class="py-6">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+        <h1 class="text-2xl font-semibold text-gray-900">Payments</h1>
+    </div>
+    <div class="px-4 mx-auto mt-2 max-w-7xl sm:px-6 md:px-8">
+        <div class="p-4 mb-10 bg-white border rounded-md">
+            <div class="mb-2">
+                <x-global.alert />
+            </div>
+
+            <div>
+                @if ($action == 'showList')
+                    <div>
+                        @include('admin.payments.list')
+                    </div>
+                @endif
+            </div>
+            <div>
+                @if ($action == 'viewPaymentDetails')
+                    <div>
+                        @include('admin.payments.view-payment-details')
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <livewire:shared.confirmation />
+
 </div>

@@ -26,7 +26,7 @@ class Payments extends Component
         return view('livewire.admin.payments',[
             'payments' => Payment::with(['portal','application'])->where('status','like','%'.$this->filter.'%')->paginate($this->pagination),
         ])
-        ->layout('layouts.admin');
+        ->layout('layouts.admin-layout');
     }
 
     public function approveConfirmation($id)

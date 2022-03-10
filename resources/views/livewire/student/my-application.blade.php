@@ -20,22 +20,17 @@
                                 {{ $application->portal->title }}
                             </h1>
                             @if ($application->status == 'approved')
-                                <div class="flex space-x-2">
-                                    <span>Your
-                                        application is approved, please proceed to payments</span>
-                                    <a
-                                        href="{{ route('student.payment-section', [
-                                            'user_id' => auth()->user()->id,
-                                            'application_id' => $application->id,
-                                        ]) }}"><svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="w-5 h-5 text-blue-700 animate-pulse"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg></a>
+                                <div class="flex items-center space-x-2">
+                                    <span>Payment is now available</span>
+                                    <a href="{{ route('student.payment-section', [
+                                        'user_id' => auth()->user()->id,
+                                        'application_id' => $application->id,
+                                    ]) }}"
+                                        type="button"
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Proceed to Payments
+                                    </a>
+
                                 </div>
                             @elseif ($application->status == 'payment-submitted')
                                 <span>Your payment is now under validation. We will notify you for your payment

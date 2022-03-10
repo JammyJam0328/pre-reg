@@ -55,15 +55,7 @@
                                     <button wire:click.prevent="viewPaymentDetails('{{ $payment->id }}')"
                                         type="button"
                                         class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white uppercase bg-gray-500 border border-transparent rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                                        <span wire:loading.remove
-                                            wire:target="viewPaymentDetails">View payment details</span>
-                                        <span wire:loading.flex
-                                            wire:target="viewPaymentDetails"
-                                            class="flex space-x-2">
-                                            <x-global.spinner class="w-4 h-4 fill-white " />
-                                            <span>Loading...</span>
-                                        </span>
-
+                                        <span>View payment details</span>
                                     </button>
                                 </td>
                             </tr>

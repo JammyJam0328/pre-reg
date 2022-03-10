@@ -12,7 +12,7 @@
             </x-user.shared.header>
             <x-user.shared.main-content>
                 <div class="space-y-3">
-                    @forelse ($portals as $portal)
+                    @if ($portal)
                         <div class="flex p-2 border rounded-md hover:shadow-md hover:border-gray-300">
                             <div class="flex-shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -36,68 +36,58 @@
                                             is now
                                             available
                                         </li>
-                                        @if (in_array($portal->id, $pendings))
-                                            <li>You have already submitted your application</li>
-                                            <li>
-                                                Your application is now being reviewed. We will send you an email for
-                                                updates and instructions. For now, you can view application
-                                                <a href="{{ route('student.view-application', [
-                                                    'portal_id' => $portal->id,
-                                                ]) }}"
-                                                    class="text-blue-600 underline hover:font-semibold">
-                                                    here
-                                                </a>
-                                            </li>
-                                        @elseif (in_array($portal->id, $ongoings))
-                                            <li>
-                                                Continue to filling up your application
-                                                <button wire:click="initialRegister({{ $portal->id }})"
-                                                    type="button"
-                                                    class="text-blue-600 underline hover:text-blue-700 hover:font-semibold focus:text-blue-700 focus:font-semibold">here</button>
-                                            </li>
-                                        @elseif (in_array($portal->id, $approveds))
-                                            <li>
-                                                Your application has been approved.
-                                                Go to > My Applications for payments
-                                            </li>
-                                        @elseif (in_array($portal->id, $paymentSubmitted))
-                                            <li>
-                                                Your payment is now under validation. We will send you an email for your
-                                                payment updates
-                                            </li>
-                                        @elseif (in_array($portal->id, $paymentApproved))
-                                            <li>
-                                                Your payment has been approved.
-                                                You can now choose your schedule. Go to > My Applications for schedules
 
-                                            </li>
-                                        @elseif (in_array($portal->id, $scheduleSelected))
-                                            <li>
-                                                Your schedule has been selected.
-                                                Check your examination permit. Go to > My Applications for examination
-                                                permit
-                                            </li>
-                                        @elseif (in_array($portal->id, $denieds))
-                                            <li class="text-red-500 animate-pulse">
-                                                Your application has been denied.
-                                            </li>
-                                        @else
+                                        @if ($this->checkApplication() == 'none')
                                             <li>
                                                 Fill up your application
                                                 <button wire:click="initialRegister({{ $portal->id }})"
                                                     type="button"
                                                     class="text-blue-600 underline hover:text-blue-700 hover:font-semibold focus:text-blue-700 focus:font-semibold">here</button>
                                             </li>
+                                        @elseif ($this->checkApplication() == 'ongoing')
+                                            <li>
+                                                Continue to filling up your application
+                                                <button wire:click="initialRegister({{ $portal->id }})"
+                                                    type="button"
+                                                    class="text-blue-600 underline hover:text-blue-700 hover:font-semibold focus:text-blue-700 focus:font-semibold">here</button>
+                                            </li>
+                                        @elseif ($this->checkApplication() == 'approved')
+                                            <li>
+                                                You have submitted your application.
+                                                Go to > <a href="{{ route('student.my-application') }}"
+                                                    class="font-semibold text-blue-600 underline">My
+                                                    Applications</a> for payments
+                                            </li>
+                                        @elseif ($this->checkApplication() == 'payment-submitted')
+                                            <li>
+                                                Your payment is now under validation. We will send you an email for your
+                                                payment updates
+                                            </li>
+                                        @elseif ($this->checkApplication() == 'payment-approved')
+                                            <li>
+                                                Your payment has been approved.
+                                                You can now choose your schedule. Go to > <a
+                                                    href="{{ route('student.my-application') }}"
+                                                    class="font-semibold text-blue-600 underline">My
+                                                    Applications</a> for schedules
+                                            </li>
+                                        @elseif ($this->checkApplication() == 'schedule-selected')
+                                            <li>
+                                                You have selected your schedule.
+                                                Go to > <a href="{{ route('student.my-application') }}"
+                                                    class="font-semibold text-blue-600 underline">My
+                                                    Applications</a> for view your permit
+                                            </li>
                                         @endif
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    @empty
+                    @else
                         <div>
                             <h3 class="text-sm font-medium ">No portal available</h3>
                         </div>
-                    @endforelse
+                    @endif
                 </div>
             </x-user.shared.main-content>
         </div>

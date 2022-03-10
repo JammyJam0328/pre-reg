@@ -9,6 +9,8 @@ use Livewire\WithPagination;
 class FormPortal extends Component
 {
     use WithPagination;
+    public $action='showList';
+
     public $title;
     public $school_year;
     public $schoolYears=[
@@ -30,7 +32,7 @@ class FormPortal extends Component
         return view('livewire.admin.form-portal',[
             'portals'=>Portal::paginate(10)
         ])
-        ->layout('layouts.admin');
+        ->layout('layouts.admin-layout');
     }
 
     public function create()
@@ -48,7 +50,7 @@ class FormPortal extends Component
             'title',
             'school_year',
         ]);
-
+        $this->action='showList';
         $this->dispatchBrowserEvent('alert',[
             'type' => 'success',
             'message' => 'Portal successfully created.',
@@ -62,7 +64,7 @@ class FormPortal extends Component
         $this->set_id = $portal_id;
         $this->emit('confirm-modal', [
             'returnAction'=>'openPortal',
-            'message'=>'Are you sure you want to open this portal?',
+            'message'=>'Are you sure you want to open this portal? Other open portals will be closed.',
         ]);
     }
 
@@ -80,6 +82,13 @@ class FormPortal extends Component
        $portal = Portal::where('id',$this->set_id)->with('schedules')->first();
     
          if(count($portal->schedules)){
+            // get all open portal and close it
+            $newPortals = Portal::where('status','open')->get();
+            foreach($newPortals as $newPortal){
+                $newPortal->status = 'close';
+                $newPortal->save();
+            }
+            
             $portal->update([
                 'status'=>'open'
             ]);
@@ -109,5 +118,10 @@ class FormPortal extends Component
             'message' => 'Portal is now closed.',
             'action'=>'displayList'
         ]);
+    }
+
+    public function sessionRemove()
+    {
+        session()->forget('success');
     }
 }

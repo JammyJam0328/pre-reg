@@ -1,4 +1,102 @@
- <div class="flex flex-col">
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div>
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-xl font-semibold text-gray-900">List of All Application Portals</h1>
+        </div>
+        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+            <button wire:click="$set('action','create')"
+                type="button"
+                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+                Create new portal
+            </button>
+        </div>
+    </div>
+    <div class="my-1">
+        <x-global.alert />
+    </div>
+    <div class="mt-5 -mx-4 border shadow sm:-mx-6 md:mx-0 md:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-300">
+            <thead>
+                <tr>
+                    <th scope="col"
+                        class="py-3.5 pl-4 pr-3 text-left  font-semibold text-indigo-600 sm:pl-6">Name</th>
+                    <th scope="col"
+                        class="hidden px-3 py-3.5 text-left  font-semibold text-indigo-600 lg:table-cell">
+                        School Year
+                    </th>
+                    <th scope="col"
+                        class="hidden px-3 py-3.5 text-left  font-semibold text-indigo-600 lg:table-cell">Status
+                    </th>
+                    <th scope="col"
+                        class="hidden px-3 py-3.5 text-left  font-semibold text-indigo-600 lg:table-cell">
+                        Schedule
+                    </th>
+
+                    <th scope="col"
+                        class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($portals as $portal)
+                    <tr>
+                        <td class="hidden px-3 py-3.5  text-gray-500 lg:table-cell">{{ $portal->title }}</td>
+                        <td class="hidden px-3 py-3.5  text-gray-500 lg:table-cell">{{ $portal->school_year }}
+                        </td>
+                        <td class="hidden px-3 py-3.5  text-gray-500 lg:table-cell">
+                            @if ($portal->status == 'open')
+                                <span class="p-2 text-green-500 bg-green-100 rounded-full">Open</span>
+                            @else
+                                <span class="p-2 text-red-500 bg-red-100 rounded-full">Close</span>
+                            @endif
+                        </td>
+                        <td class="hidden px-3 py-3.5  text-gray-500 lg:table-cell">
+                            <a href="{{ route('admin.portal-schedule', [
+                                'id' => $portal->id,
+                            ]) }}"
+                                type="button"
+                                class="inline-flex items-center px-3 py-2 font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none ">
+                                View Schedules
+                            </a>
+                        </td>
+                        <td class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right  font-medium">
+                            @if ($portal->status == 'close')
+                                <button wire:click="confirmOpenPortal('{{ $portal->id }}')"
+                                    type="button"
+                                    class="inline-flex items-center px-3 py-2 font-medium leading-4 text-white bg-green-600 rounded-md ">
+                                    Open
+                                </button>
+                            @else
+                                <button wire:click="confirmClosePortal('{{ $portal->id }}')"
+                                    type="button"
+                                    class="inline-flex items-center px-3 py-2 font-medium leading-4 text-white bg-red-600 rounded-md ">
+                                    Close
+                                </button>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5"
+                            class="px-4 py-3 text-center">
+                            <p class="text-gray-500">No portals found.</p>
+                        </td>
+                    </tr>
+                @endforelse
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+{{-- <div class="flex flex-col">
      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
              <div class="overflow-hidden border border-gray-200 sm:rounded-lg">
@@ -119,7 +217,7 @@
                              </tr>
                              @empty
                                  <tr class="bg-white">
-                                     <td colspan="5"
+                                     <td colspan="6"
                                          class="px-6 py-4 text-sm font-medium text-center text-gray-900 whitespace-nowrap">
                                          No Portals Found
                                      </td>
@@ -133,4 +231,4 @@
                  {{ $portals->links() }}
              </div>
          </div>
-     </div>
+     </div> --}}

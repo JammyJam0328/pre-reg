@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('exam_schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('application_id');
-            $table->unsignedBigInteger('examination_facility_id');
+            $table->unsignedBigInteger('examination_test_center_id');
             $table->timestamps();
         });
     }
